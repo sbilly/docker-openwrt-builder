@@ -6,4 +6,7 @@ USER user
 WORKDIR /home/user
 
 # Prepaire Environment
+COPY ./build-openwrt.sh /home/user/build-openwrt.sh
+
+# Run
 RUN /home/user/build-openwrt.sh
