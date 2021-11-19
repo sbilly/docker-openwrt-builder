@@ -1,7 +1,15 @@
 # OpenWRT-Builder
 
-OpenWRT development environment in docker
+OpenWRT build environment in docker
 
+## Usage
+
+```bash
+docker pull sbilly/openwrt-builder:latest
+
+docker run -ti --rm --name openwrt-builder -v `pwd`:/home/user sbilly/openwrt-builder:latest  /bin/bash
+
+```
 
 ## Thanks
 
