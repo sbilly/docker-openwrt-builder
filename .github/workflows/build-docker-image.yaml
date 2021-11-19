@@ -82,6 +82,5 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./openwrt-builder-branch/
-        options: -e OPENWRT_BRANCH=${{ matrix.branch }} -v ${{ github.workspace }}:/home/user
         push: true
         tags: sbilly/openwrt-builder:${{ matrix.branch }}
