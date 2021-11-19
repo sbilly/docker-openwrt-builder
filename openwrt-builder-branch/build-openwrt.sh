@@ -19,12 +19,6 @@ download_openwrt() {
 	if [ ! -d "openwrt" ]; then
   		git clone https://git.openwrt.org/openwrt/openwrt.git	
 	fi
-
-	# update
-	cd ${WORK_DIR}/openwrt
-	git stash
-	git pull --all
-	git pull --tags
 }
 
 change_openwrt_branch() {
@@ -38,6 +32,18 @@ change_openwrt_branch() {
 	fi
 }
 
+init_openwrt_branch() {
+	cd ${WORK_DIR}/openwrt
+
+	git stash
+	git pull --all
+	git pull --tags
+
+
+	echo "CONFIG_TARGET_x86=y" > ${WORK_DIR}/openwrt/.config
+	echo "CONFIG_TARGET_x86_64=y" >> ${WORK_DIR}/openwrt/.config
+}
+
 update_install_openwrt_feeds() {
 	cd ${WORK_DIR}/openwrt
 
@@ -45,17 +51,20 @@ update_install_openwrt_feeds() {
 	./scripts/feeds install -a
 }
 
-
-openwrt_make_download() {
+openwrt_make_init() {
 	cd ${WORK_DIR}/openwrt
 
-	make download -j4
+	make defconfig
+ 	make -j4 tools/install
+ 	make -j4 toolchain/install
 }
 
 download_openwrt
 
 change_openwrt_branch ${DEFAULT_OPENWRT_BRANCH}
 
+init_openwrt_branch
+
 update_install_openwrt_feeds
 
-openwrt_make_download
+openwrt_make_init
