@@ -51,7 +51,7 @@ openwrt_make_init() {
 	cd ${WORK_DIR}/openwrt
 
 	echo "CONFIG_TARGET_x86=y" > ${WORK_DIR}/openwrt/.config
-	echo "CONFIG_TARGET_x86_64=y" >> ${WORK_DIR}/openwrt/.config	
+	echo "CONFIG_TARGET_x86_64=y" >> ${WORK_DIR}/openwrt/.config
 
 	make defconfig
 	make -j4 download
