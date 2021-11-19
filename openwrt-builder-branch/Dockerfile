@@ -9,4 +9,4 @@ WORKDIR /home/user
 COPY ./build-openwrt.sh /home/user/build-openwrt.sh
 
 # Run
-RUN /home/user/build-openwrt.sh
+RUN bash /home/user/build-openwrt.sh
