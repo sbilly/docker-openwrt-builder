@@ -38,10 +38,6 @@ init_openwrt_branch() {
 	git stash
 	git pull --all
 	git pull --tags
-
-
-	echo "CONFIG_TARGET_x86=y" > ${WORK_DIR}/openwrt/.config
-	echo "CONFIG_TARGET_x86_64=y" >> ${WORK_DIR}/openwrt/.config
 }
 
 update_install_openwrt_feeds() {
@@ -54,7 +50,11 @@ update_install_openwrt_feeds() {
 openwrt_make_init() {
 	cd ${WORK_DIR}/openwrt
 
+	echo "CONFIG_TARGET_x86=y" > ${WORK_DIR}/openwrt/.config
+	echo "CONFIG_TARGET_x86_64=y" >> ${WORK_DIR}/openwrt/.config	
+
 	make defconfig
+	make -j4 download
  	make -j4 tools/install
  	make -j4 toolchain/install
 }
