@@ -15,12 +15,10 @@ jobs:
   openwrt-builder:
     name: 'Build docker image'
     runs-on: ubuntu-latest
-
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
         run:
           shell: bash
-
     steps:
     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
     - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -48,4 +46,3 @@ jobs:
         context: ./openwrt-builder/
         push: true
         tags: sbilly/openwrt-builder:latest
-    
