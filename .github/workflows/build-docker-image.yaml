@@ -78,9 +78,14 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     # Build image and push to DockerHub
+    # - name: "Build image and push to DockerHub"
+    #   uses: docker/build-push-action@v2
+    #   with:
+    #     context: ./openwrt-builder-branch/
+    #     push: true
+    #     tags: sbilly/openwrt-builder:${{ matrix.branch }}
+
+
+    Build image and push to DockerHub
     - name: "Build image and push to DockerHub"
-      uses: docker/build-push-action@v2
-      with:
-        context: ./openwrt-builder-branch/
-        push: true
-        tags: sbilly/openwrt-builder:${{ matrix.branch }}
+      run: docker build -t sbilly/openwrt-builder:${{ matrix.branch }} --build-arg OPENWRT_BRANCH="${{ matrix.branch }}" ./openwrt-builder-branch/

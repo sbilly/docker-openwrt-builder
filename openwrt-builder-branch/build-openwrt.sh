@@ -47,16 +47,52 @@ update_install_openwrt_feeds() {
 	./scripts/feeds install -a
 }
 
-openwrt_make_init() {
+openwrt_init_config() {
 	cd ${WORK_DIR}/openwrt
 
 	echo "CONFIG_TARGET_x86=y" > ${WORK_DIR}/openwrt/.config
 	echo "CONFIG_TARGET_x86_64=y" >> ${WORK_DIR}/openwrt/.config
+}
+
+openwrt_make_build_env() {
+	cd ${WORK_DIR}/openwrt
 
 	make defconfig
 	make -j4 download
  	make -j4 tools/install
  	make -j4 toolchain/install
+}
+
+openwrt_make() {
+	cd ${WORK_DIR}/openwrt
+
+	make -j4
+}
+
+openwrt_install_netmaker_feeds() {
+	cd ${WORK_DIR}/openwrt
+
+	echo "src-git netmaker http://github.com/sbilly/netmaker-openwrt.git" >> feeds.conf.default
+
+	./scripts/feeds update netmaker
+	./scripts/feeds install netmaker
+}
+
+openwrt_make_package() {
+	cd ${WORK_DIR}/openwrt
+
+	if [ "${1}" = "" ]
+	then
+		make package/${1}/{clean,compile}
+	fi
+}
+
+openwrt_install_package_netmaker_config() {
+	cd ${WORK_DIR}/openwrt
+
+	echo "CONFIG_FEED_netmaker=y" >> ${WORK_DIR}/openwrt/.config
+	echo "CONFIG_PACKAGE_netmaker=y" >> ${WORK_DIR}/openwrt/.config
+	echo "CONFIG_PACKAGE_netmaker-dev=y" >> ${WORK_DIR}/openwrt/.config
 }
 
 download_openwrt
@@ -65,6 +101,13 @@ change_openwrt_branch ${DEFAULT_OPENWRT_BRANCH}
 
 init_openwrt_branch
 
+# openwrt_install_netmaker_feeds
+
 update_install_openwrt_feeds
 
-openwrt_make_init
+openwrt_init_config
+
+# openwrt_install_package_netmaker_config
+
+openwrt_make_build_env
+
