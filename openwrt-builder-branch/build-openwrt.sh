@@ -83,7 +83,9 @@ openwrt_make_package() {
 
 	if [ "${1}" = "" ]
 	then
-		make package/${1}/{clean,compile}
+		make package/${1}/clean
+		find ./ -type d | xargs -n1 sudo chmod 755 -R
+		make package/${1}/compile
 	fi
 }
 
