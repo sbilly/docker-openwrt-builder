@@ -87,5 +87,12 @@ jobs:
 
 
     Build image and push to DockerHub
-    - name: "Build image and push to DockerHub"
-      run: docker build -t sbilly/openwrt-builder:${{ matrix.branch }} --build-arg OPENWRT_BRANCH=${{ matrix.branch }} ./openwrt-builder-branch/
+    - name: 'Build image DockerHub'
+      run: |
+        echo "Building ${{ matrix.branch }} branch."
+
+        # build images
+        docker build -t sbilly/openwrt-builder:${{ matrix.branch }} --build-arg OPENWRT_BRANCH="${{ matrix.branch }}" ./openwrt-builder-branch/
+
+        # push image
+        docker push sbilly/openwrt-builder:${{ matrix.branch }}
