@@ -86,7 +86,7 @@ jobs:
     #     tags: sbilly/openwrt-builder:${{ matrix.branch }}
 
 
-    Build image and push to DockerHub
+    # Build image and push to DockerHub
     - name: 'Build image DockerHub'
       run: |
         echo "Building ${{ matrix.branch }} branch."
