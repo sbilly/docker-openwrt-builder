@@ -10,6 +10,7 @@ RUN apt-get update &&\
         python3 python3-distutils-extra rsync curl libsnmp-dev liblzma-dev \
         libpam0g-dev cpio rsync && \
     apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     useradd -m user && \
     echo 'user ALL=NOPASSWD: ALL' > /etc/sudoers.d/user
 

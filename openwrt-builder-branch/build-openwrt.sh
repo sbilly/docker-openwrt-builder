@@ -111,3 +111,4 @@ openwrt_init_config
 
 openwrt_make_build_env
 
+openwrt_make
